@@ -7,6 +7,10 @@ import type { Scene } from '../types';
 interface Props {
   scene: Scene | null;
   projectTitle: string;
+  sidebarOpen: boolean;
+  canvasOpen: boolean;
+  onToggleSidebar: () => void;
+  onToggleCanvas: () => void;
   onContentChange: (content: string) => void;
 }
 
@@ -37,7 +41,7 @@ function ToolbarButton({ onClick, active, children, title }: {
   );
 }
 
-export default function Editor({ scene, projectTitle, onContentChange }: Props) {
+export default function Editor({ scene, projectTitle, sidebarOpen, canvasOpen, onToggleSidebar, onToggleCanvas, onContentChange }: Props) {
   const editor = useEditor({
     extensions: [
       StarterKit.configure({ heading: { levels: [1, 2, 3] } }),
@@ -80,7 +84,16 @@ export default function Editor({ scene, projectTitle, onContentChange }: Props) 
   return (
     <div className="flex-1 flex flex-col h-screen overflow-hidden bg-[#faf6f1]">
       {/* Toolbar */}
-      <div className="flex items-center gap-1 px-4 py-2 border-b border-[#c4a882]/40 bg-[#f5f0eb] shrink-0">
+      <div className="flex items-center gap-1 px-3 py-2 border-b border-[#c4a882]/40 bg-[#f5f0eb] shrink-0">
+        {/* Sidebar toggle */}
+        <button
+          onClick={onToggleSidebar}
+          title={sidebarOpen ? 'サイドバーを閉じる' : 'サイドバーを開く'}
+          className="text-[#8b6f5e] hover:text-[#5a3e2b] hover:bg-[#c4a882]/20 rounded px-1.5 py-1 text-base leading-none mr-1"
+        >
+          {sidebarOpen ? '‹' : '›'}
+        </button>
+        <div className="w-px h-5 bg-[#c4a882]/50 mr-1" />
         <ToolbarButton
           onClick={() => editor?.chain().focus().toggleHeading({ level: 1 }).run()}
           active={editor?.isActive('heading', { level: 1 })}
@@ -129,7 +142,16 @@ export default function Editor({ scene, projectTitle, onContentChange }: Props) 
 
         <div className="flex-1" />
 
-        <span className="text-xs text-[#8b6f5e] font-mono">{charCount.toLocaleString()} 字</span>
+        <span className="text-xs text-[#8b6f5e] font-mono mr-2">{charCount.toLocaleString()} 字</span>
+        <div className="w-px h-5 bg-[#c4a882]/50 ml-1" />
+        {/* Canvas toggle */}
+        <button
+          onClick={onToggleCanvas}
+          title={canvasOpen ? 'キャンバスを閉じる' : 'キャンバスを開く'}
+          className="text-[#8b6f5e] hover:text-[#5a3e2b] hover:bg-[#c4a882]/20 rounded px-1.5 py-1 text-base leading-none ml-1"
+        >
+          {canvasOpen ? '›' : '‹'}
+        </button>
       </div>
 
       {/* Editor area */}

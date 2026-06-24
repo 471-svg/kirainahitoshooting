@@ -76,7 +76,7 @@ function SortableScene({ scene, isActive, onSelect, onDelete, onRename }: {
 export default function Sidebar({
   projects, activeProjectId, activeSceneId,
   onSelectProject, onSelectScene, onCreateProject, onDeleteProject,
-  onCreateScene, onDeleteScene, onUpdateSceneTitle, onReorderScenes,
+  onCreateScene, onDeleteScene, onUpdateSceneTitle, onReorderScenes, onClose,
 }: Props) {
   const [newProjectTitle, setNewProjectTitle] = useState('');
   const [showNewProject, setShowNewProject] = useState(false);
@@ -99,8 +99,9 @@ export default function Sidebar({
   return (
     <div className="w-60 shrink-0 bg-[#ede7df] border-r border-[#c4a882]/50 flex flex-col h-screen">
       {/* App title */}
-      <div className="px-4 py-4 border-b border-[#c4a882]/40">
+      <div className="px-4 py-4 border-b border-[#c4a882]/40 flex items-center justify-between">
         <h1 className="text-base font-bold text-[#5a3e2b] tracking-widest">StoryWeaver</h1>
+        <button onClick={onClose} title="サイドバーを閉じる" className="text-[#8b6f5e] hover:text-[#5a3e2b] text-lg leading-none">‹</button>
       </div>
 
       {/* Projects */}

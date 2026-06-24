@@ -6,13 +6,14 @@ const NOTE_COLORS = ['#fef08a', '#bbf7d0', '#bfdbfe', '#fecaca', '#e9d5ff'];
 interface Props {
   data: CanvasData;
   onChange: (data: CanvasData) => void;
+  onClose: () => void;
 }
 
 function generateId() {
   return Math.random().toString(36).slice(2) + Date.now().toString(36);
 }
 
-export default function Canvas({ data, onChange }: Props) {
+export default function Canvas({ data, onChange, onClose }: Props) {
   const canvasRef = useRef<HTMLDivElement>(null);
   const [dragging, setDragging] = useState<{ id: string; type: 'note' | 'image'; ox: number; oy: number } | null>(null);
 
@@ -78,6 +79,7 @@ export default function Canvas({ data, onChange }: Props) {
     <div className="w-72 shrink-0 bg-[#ede7df] border-l border-[#c4a882]/50 flex flex-col h-screen">
       {/* Header */}
       <div className="px-4 py-3 border-b border-[#c4a882]/40 flex items-center gap-2">
+        <button onClick={onClose} title="キャンバスを閉じる" className="text-[#8b6f5e] hover:text-[#5a3e2b] text-lg leading-none mr-1">›</button>
         <span className="text-xs text-[#8b6f5e] font-medium tracking-wider flex-1">キャンバス</span>
         <button onClick={addNote} className="text-xs text-[#5a3e2b] hover:bg-[#c4a882]/30 px-2 py-1 rounded">付箋＋</button>
         <label className="text-xs text-[#5a3e2b] hover:bg-[#c4a882]/30 px-2 py-1 rounded cursor-pointer">
