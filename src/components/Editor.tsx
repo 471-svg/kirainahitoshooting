@@ -2,7 +2,7 @@ import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Placeholder from '@tiptap/extension-placeholder';
 import { useEffect, useMemo } from 'react';
-import { Scene } from '../types';
+import type { Scene } from '../types';
 
 interface Props {
   scene: Scene | null;

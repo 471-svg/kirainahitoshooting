@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { CanvasData, StickyNote, CanvasImage } from '../types';
+import type { CanvasData, StickyNote, CanvasImage } from '../types';
 
 const NOTE_COLORS = ['#fef08a', '#bbf7d0', '#bfdbfe', '#fecaca', '#e9d5ff'];
 

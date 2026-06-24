@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Project, Scene, CanvasData } from './types';
+import type { Project, Scene, CanvasData } from './types';
 
 const PROJECTS_KEY = 'sw_projects';
 const CANVAS_KEY = 'sw_canvas';

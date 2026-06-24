@@ -1,12 +1,11 @@
 import { useState } from 'react';
-import {
-  DndContext, closestCenter, PointerSensor, useSensor, useSensors, DragEndEvent
-} from '@dnd-kit/core';
+import { DndContext, closestCenter, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
+import type { DragEndEvent } from '@dnd-kit/core';
 import {
   SortableContext, verticalListSortingStrategy, useSortable, arrayMove
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { Project, Scene } from '../types';
+import type { Project, Scene } from '../types';
 
 interface Props {
   projects: Project[];
@@ -14,6 +13,7 @@ interface Props {
   activeSceneId: string | null;
   onSelectProject: (id: string) => void;
   onSelectScene: (id: string) => void;
+  onClose: () => void;
   onCreateProject: (title: string) => void;
   onDeleteProject: (id: string) => void;
   onCreateScene: (projectId: string, title: string) => void;
@@ -22,10 +22,9 @@ interface Props {
   onReorderScenes: (projectId: string, scenes: Scene[]) => void;
 }
 
-function SortableScene({ scene, isActive, projectId, onSelect, onDelete, onRename }: {
+function SortableScene({ scene, isActive, onSelect, onDelete, onRename }: {
   scene: Scene;
   isActive: boolean;
-  projectId: string;
   onSelect: () => void;
   onDelete: () => void;
   onRename: (title: string) => void;
@@ -168,7 +167,7 @@ export default function Sidebar({
                   key={scene.id}
                   scene={scene}
                   isActive={activeSceneId === scene.id}
-                  projectId={activeProject.id}
+
                   onSelect={() => onSelectScene(scene.id)}
                   onDelete={() => onDeleteScene(activeProject.id, scene.id)}
                   onRename={title => onUpdateSceneTitle(activeProject.id, scene.id, title)}
